@@ -1,5 +1,6 @@
 package com.develop.ws.service;
 
+import com.develop.ws.ProductCreatedEvent;
 import com.develop.ws.rest.CreateProductRestModel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
