@@ -8,6 +8,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import java.util.HashMap;
@@ -30,7 +31,8 @@ public class KafkaConsumerConfig {
         config.put(BOOTSTRAP_SERVERS_CONFIG,
                 environment.getProperty("spring.kafka.consumer.bootstrap-servers"));
         config.put(KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        config.put(VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+        // config.put(VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+        config.put(VALUE_DESERIALIZER_CLASS_CONFIG, ErrorHandlingDeserializer.class);
         config.put(JsonDeserializer.TRUSTED_PACKAGES,
                 environment.getProperty("spring.kafka.consumer.properties.spring.json.trusted.packages"));
         config.put(GROUP_ID_CONFIG, environment.getProperty("spring.kafka.consumer.group-id"));
