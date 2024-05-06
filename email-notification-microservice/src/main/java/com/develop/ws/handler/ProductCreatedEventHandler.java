@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Slf4j
 @Component
-@KafkaListener(topics = "product-created-events-topic")
+@KafkaListener(topics = "product-created-events-topic" /*, groupId = "product-created-events" */)
 @RequiredArgsConstructor
 public class ProductCreatedEventHandler {
     private final RestTemplate restTemplate;
