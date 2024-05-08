@@ -25,8 +25,8 @@ public class ProductCreatedEventHandler {
     public void handle(ProductCreatedEvent productCreatedEvent) {
         log.info("Received a new event: {}", productCreatedEvent.getTitle());
 
-        // simulate throwing retryable exception
-        String requestUrl = "http://localhost:8082";
+        // simulate throwing retryable exception with mockservice status 200
+        String requestUrl = "http://localhost:8082/response/200";
 
         try {
             ResponseEntity<String> response = restTemplate.exchange(requestUrl, HttpMethod.GET, null, String.class);
