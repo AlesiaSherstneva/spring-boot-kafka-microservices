@@ -9,10 +9,14 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.annotation.KafkaHandler;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.messaging.handler.annotation.Header;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
+
+import static org.springframework.kafka.support.KafkaHeaders.RECEIVED_KEY;
 
 @Slf4j
 @Component
@@ -22,7 +26,9 @@ public class ProductCreatedEventHandler {
     private final RestTemplate restTemplate;
 
     @KafkaHandler
-    public void handle(ProductCreatedEvent productCreatedEvent) {
+    public void handle(@Payload ProductCreatedEvent productCreatedEvent,
+                       @Header("messageId") String messageId,
+                       @Header(RECEIVED_KEY) String messageKey) {
         log.info("Received a new event: {}", productCreatedEvent.getTitle());
 
         // simulate throwing retryable exception with mockservice status 200
