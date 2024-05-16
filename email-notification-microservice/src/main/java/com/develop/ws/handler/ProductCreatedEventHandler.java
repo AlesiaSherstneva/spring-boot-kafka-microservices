@@ -37,6 +37,11 @@ public class ProductCreatedEventHandler {
                        @Header(RECEIVED_KEY) String messageKey) {
         log.info("Received a new event: {}", productCreatedEvent.getTitle());
 
+        ProcessedEventEntity existingRecord = processedEventRepository.findByMessageId(messageId);
+        if (existingRecord != null) {
+            log.info("Found a duplicate message id: {}", existingRecord.getMessageId());
+        }
+
         // simulate throwing retryable exception with mockservice status 200
         String requestUrl = "http://localhost:8082/response/200";
 
