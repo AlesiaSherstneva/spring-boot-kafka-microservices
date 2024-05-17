@@ -1,6 +1,7 @@
 /.idea/
 /*/.idea/
-/*/target/
-/*/.mvn/
-/*/mvnw*
-/*/*.iml
+/*/*/.idea/
+/*/*/target/
+/*/*/.mvn/
+/*/*/mvnw*
+/*/*/*.iml
