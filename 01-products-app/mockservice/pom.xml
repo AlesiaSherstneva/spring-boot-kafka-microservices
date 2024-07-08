@@ -10,7 +10,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>com.appsdeveloperblog.ws</groupId>
+	<groupId>com.develop.ws</groupId>
 	<artifactId>mockservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>mockservice</name>
