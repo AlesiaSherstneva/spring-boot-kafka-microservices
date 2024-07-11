@@ -80,7 +80,7 @@ public class KafkaConfig {
 		return new KafkaTemplate<>(producerFactory);
 	}
 
-    @Bean
+    @Bean("kafkaTransactionManager")
     KafkaTransactionManager<String, Object> kafkaTransactionManager(ProducerFactory<String, Object> producerFactory) {
 		return new KafkaTransactionManager<>(producerFactory);
     }
