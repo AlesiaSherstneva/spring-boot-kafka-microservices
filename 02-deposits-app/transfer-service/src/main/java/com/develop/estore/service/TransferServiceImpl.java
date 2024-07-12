@@ -1,11 +1,15 @@
 package com.develop.estore.service;
 
 import com.develop.estore.error.TransferServiceException;
+import com.develop.estore.io.TransferEntity;
+import com.develop.estore.io.TransferRepository;
 import com.develop.estore.model.TransferRestModel;
 import com.develop.payments.events.DepositRequestedEvent;
 import com.develop.payments.events.WithdrawalRequestedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.common.Uuid;
+import org.springframework.beans.BeanUtils;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -22,6 +26,7 @@ public class TransferServiceImpl implements TransferService {
     private final KafkaTemplate<String, Object> kafkaTemplate;
     private final Environment environment;
     private final RestTemplate restTemplate;
+    private final TransferRepository transferRepository;
 
     @Override
     // if we need specific behaviour
@@ -29,14 +34,22 @@ public class TransferServiceImpl implements TransferService {
             rollbackFor = {TransferServiceException.class, ConnectException.class},
             noRollbackFor = {SpecificException.class}) */
     // if we have onr default behaviour
-    @Transactional("kafkaTransactionManager")
+    @Transactional("transactionManager")
     public boolean transfer(TransferRestModel transferRestModel) {
         WithdrawalRequestedEvent withdrawalEvent = new WithdrawalRequestedEvent(transferRestModel.getSenderId(),
                 transferRestModel.getRecipientId(), transferRestModel.getAmount());
+
         DepositRequestedEvent depositEvent = new DepositRequestedEvent(transferRestModel.getSenderId(),
                 transferRestModel.getRecipientId(), transferRestModel.getAmount());
 
+        TransferEntity transferEntity = new TransferEntity();
+        BeanUtils.copyProperties(transferRestModel, transferEntity);
+        transferEntity.setTransferId(Uuid.randomUuid().toString());
+
         try {
+            // save record to a database table
+            transferRepository.save(transferEntity);
+
             kafkaTemplate.send(environment.getProperty("withdraw-money-topic", "withdraw-money-topic"),
                     withdrawalEvent);
             log.info("Sent event to withdrawal topic");
