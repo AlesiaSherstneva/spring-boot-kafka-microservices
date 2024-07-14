@@ -50,8 +50,7 @@ public class TransferServiceImpl implements TransferService {
             // save record to a database table
             transferRepository.save(transferEntity);
 
-            kafkaTemplate.send(environment.getProperty("withdraw-money-topic", "withdraw-money-topic"),
-                    withdrawalEvent);
+            kafkaTemplate.send(environment.getProperty("withdraw-money-topic", "withdraw-money-topic"), withdrawalEvent);
             log.info("Sent event to withdrawal topic");
 
             // Business logic that causes and error
