@@ -1,7 +1,7 @@
 package com.develop.orders.service;
 
-import com.appsdeveloperblog.core.dto.Order;
-import com.appsdeveloperblog.core.types.OrderStatus;
+import com.develop.core.dto.Order;
+import com.develop.core.types.OrderStatus;
 import com.develop.orders.dao.jpa.entity.OrderEntity;
 import com.develop.orders.dao.jpa.repository.OrderRepository;
 import org.springframework.stereotype.Service;
@@ -30,5 +30,4 @@ public class OrderServiceImpl implements OrderService {
                 entity.getProductQuantity(),
                 entity.getStatus());
     }
-
 }

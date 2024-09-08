@@ -1,7 +1,7 @@
 package com.develop.core.dto;
 
 
-import com.appsdeveloperblog.core.types.OrderStatus;
+import com.develop.core.types.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

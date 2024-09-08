@@ -1,6 +1,6 @@
 package com.develop.orders.service;
 
-import com.appsdeveloperblog.core.dto.Order;
+import com.develop.core.dto.Order;
 
 public interface OrderService {
     Order placeOrder(Order order);

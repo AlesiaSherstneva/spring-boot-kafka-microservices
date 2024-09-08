@@ -1,6 +1,6 @@
 package com.develop.orders.service;
 
-import com.appsdeveloperblog.core.types.OrderStatus;
+import com.develop.core.types.OrderStatus;
 import com.develop.orders.dto.OrderHistory;
 
 import java.util.List;
