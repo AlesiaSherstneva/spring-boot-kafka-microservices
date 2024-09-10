@@ -1,8 +1,9 @@
 package com.develop.payments.service;
 
-import com.appsdeveloperblog.core.dto.Payment;
+import com.develop.core.dto.Payment;
 import com.develop.payments.dao.jpa.entity.PaymentEntity;
 import com.develop.payments.dao.jpa.repository.PaymentRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -12,16 +13,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
     public static final String SAMPLE_CREDIT_CARD_NUMBER = "374245455400126";
     private final PaymentRepository paymentRepository;
     private final CreditCardProcessorRemoteService ccpRemoteService;
-
-    public PaymentServiceImpl(PaymentRepository paymentRepository,
-                              CreditCardProcessorRemoteService ccpRemoteService) {
-        this.paymentRepository = paymentRepository;
-        this.ccpRemoteService = ccpRemoteService;
-    }
 
     @Override
     public Payment process(Payment payment) {
@@ -32,7 +28,7 @@ public class PaymentServiceImpl implements PaymentService {
         BeanUtils.copyProperties(payment, paymentEntity);
         paymentRepository.save(paymentEntity);
 
-        var processedPayment = new Payment();
+        Payment processedPayment = new Payment();
         BeanUtils.copyProperties(payment, processedPayment);
         processedPayment.setId(paymentEntity.getId());
         return processedPayment;
