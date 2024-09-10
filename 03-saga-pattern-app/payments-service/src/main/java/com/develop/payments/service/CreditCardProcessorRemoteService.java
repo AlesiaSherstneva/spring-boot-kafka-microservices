@@ -1,4 +1,4 @@
-package com.appsdeveloperblog.payments.service;
+package com.develop.payments.service;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
