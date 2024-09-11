@@ -1,9 +1,9 @@
-package com.appsdeveloperblog.products.web.controller;
+package com.develop.products.web.controller;
 
 import com.appsdeveloperblog.core.dto.Product;
-import com.appsdeveloperblog.products.dto.ProductCreationRequest;
-import com.appsdeveloperblog.products.dto.ProductCreationResponse;
-import com.appsdeveloperblog.products.service.ProductService;
+import com.develop.products.dto.ProductCreationRequest;
+import com.develop.products.dto.ProductCreationResponse;
+import com.develop.products.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;

@@ -1,22 +1,25 @@
-package com.appsdeveloperblog.products.dao.jpa.entity;
+package com.develop.products.dto;
 
-import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
-@Table(name = "products")
-@Entity
-public class ProductEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-    @Column(name = "quantity")
-    private Integer quantity;
-    @Column(name = "name")
+public class ProductCreationRequest {
+    @NotBlank
     private String name;
-    @Column(name = "price")
+    @NotNull
+    @Positive
     private BigDecimal price;
+    @Positive
+    private Integer quantity;
+
+    public ProductCreationRequest(String name, BigDecimal price, Integer quantity) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
 
     public String getName() {
         return name;
@@ -32,14 +35,6 @@ public class ProductEntity {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public Integer getQuantity() {

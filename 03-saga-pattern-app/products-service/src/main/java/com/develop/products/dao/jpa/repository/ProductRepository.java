@@ -1,6 +1,6 @@
-package com.appsdeveloperblog.products.dao.jpa.repository;
+package com.develop.products.dao.jpa.repository;
 
-import com.appsdeveloperblog.products.dao.jpa.entity.ProductEntity;
+import com.develop.products.dao.jpa.entity.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

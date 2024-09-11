@@ -1,4 +1,4 @@
-package com.appsdeveloperblog.products.service;
+package com.develop.products.service;
 
 import com.appsdeveloperblog.core.dto.Product;
 
