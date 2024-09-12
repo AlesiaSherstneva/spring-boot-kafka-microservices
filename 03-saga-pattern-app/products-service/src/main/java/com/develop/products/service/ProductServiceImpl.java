@@ -1,9 +1,10 @@
 package com.develop.products.service;
 
-import com.appsdeveloperblog.core.dto.Product;
-import com.appsdeveloperblog.core.exceptions.ProductInsufficientQuantityException;
+import com.develop.core.dto.Product;
+import com.develop.core.exceptions.ProductInsufficientQuantityException;
 import com.develop.products.dao.jpa.entity.ProductEntity;
 import com.develop.products.dao.jpa.repository.ProductRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -12,12 +13,9 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
-
-    public ProductServiceImpl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
 
     @Override
     public Product reserve(Product desiredProduct, UUID orderId) {
@@ -29,7 +27,7 @@ public class ProductServiceImpl implements ProductService {
         productEntity.setQuantity(productEntity.getQuantity() - desiredProduct.getQuantity());
         productRepository.save(productEntity);
 
-        var reservedProduct = new Product();
+        Product reservedProduct = new Product();
         BeanUtils.copyProperties(productEntity, reservedProduct);
         reservedProduct.setQuantity(desiredProduct.getQuantity());
         return reservedProduct;
